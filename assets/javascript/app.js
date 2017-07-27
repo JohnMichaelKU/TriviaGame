@@ -12,7 +12,7 @@ $(document).ready(function() {
 		console.log("questionMarkerAppear is called");
 		$("#initiateGame").remove();
 		$.ajax({
-          	url: "https://opentdb.com/api.php?amount=50&category=15&difficulty=medium&type=multiple",
+          	url: "https://opentdb.com/api.php?amount=50&category=15&difficulty=easy&type=multiple",
           	method: "GET"
         }).done(function(data) {
           	console.log(data);
