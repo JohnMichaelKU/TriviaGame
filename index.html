@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Totally Trivial Trivia!</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
+	<link rel="stylesheet" href="assets/css/bulma.css">
+</head>
+<body>
+<section class="hero is-primary">
+  	<div class="hero-body">
+    	<div class="container">
+    		<div class="columns is-mobile">
+				<div class="column has-text-centered">
+      				<h1 class="title">
+        				Trivia Game
+      				</h1>
+      				<h2 class="subtitle">
+        				Video Games
+      				</h2>
+    			</div>
+  			</div>
+  		</div>
+  	</div>
+</section>
+<br>
+<div class="columns is-mobile">
+  	<div class="column is-one-third-tablet is-one-quarter-mobile">
+		<nav class="level">
+  			<div class="level-item has-text-centered">
+    			<div>
+      				<p class="heading">Score</p>
+      				<p id="score" class="title"></p>
+    			</div>
+  			</div>
+  		</nav>
+  	</div>
+  	<div class="column is-one-third-tablet is-one-quarter-mobile">
+		<nav class="level">
+  			<div class="level-item has-text-centered">
+    			<div>
+      				<p class="heading">Missed</p>
+      				<p id="missed" class="title"></p>
+    			</div>
+  			</div>
+  		</nav>
+  	</div>
+  	<div class="column is-one-third-tablet is-half-mobile">
+		<nav class="level">
+  			<div class="level-item has-text-centered">
+    			<div>
+      				<p class="heading">Time Left</p>
+      				<p id="timer" class="title">Countdown</p>
+    			</div>
+  			</div>
+  		</nav>
+  	</div>
+</div>
+<section class="section has-text-centered">
+    <div class="container">
+      	<div id="questionMarker" class="title"></div>
+      	<br>
+      	<h2 id="questionLocation" class="subtitle">
+      		<div id="questionDisplay"> 
+      		</div>
+        	<a id="initiateGame" class="button is-primary is-large is-outlined">Get Started</a>
+      	</h2>
+    </div>
+</section>
+</body>
+</html>
