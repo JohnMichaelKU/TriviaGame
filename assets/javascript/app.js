@@ -4,6 +4,7 @@ var answer;
 var score = 0;
 var missed = 0;
 var timeLeft = 20;
+var countdown;
 $(document).ready(function() {
 	changeScore();
 	changeMissed();
@@ -12,7 +13,7 @@ $(document).ready(function() {
 		console.log("questionMarkerAppear is called");
 		$("#initiateGame").remove();
 		$.ajax({
-          	url: "https://opentdb.com/api.php?amount=50&category=15&difficulty=easy&type=multiple",
+          	url: "https://opentdb.com/api.php?amount=50&category=9&difficulty=easy&type=multiple",
           	method: "GET"
         }).done(function(data) {
           	console.log(data);
@@ -43,10 +44,9 @@ $(document).ready(function() {
 				answers = shuffle(answers)
 			}
 			function createAnswerButtons() {
-				$(".answer").remove()
 				for (var i = 0; i < answers.length; i++) {
 					var a = $('<button value="' + answers[i] + '">');
-					a.addClass("answer button is-primary is-large is-outlined");
+					a.addClass("answer button is-primary is-medium is-outlined column is-one-half");
    	 				a.text(answers[i]);
     				$("#questionDisplay").append(a);
 				}
@@ -62,22 +62,19 @@ $(document).ready(function() {
 						answers = [];
 						timeLeft = 20;
 						changeScore();
-						replayGame();
+						endGame();
 					} else {
 						missed = missed + 1;
 						attempts = attempts + 1;
 						answers = [];
 						timeLeft = 20;
 						changeMissed();
-						replayGame();
+						endGame();
 					}
 				});
 			}
-			function setTime() {
-				$("#timer").html(timeLeft);
-			}
 			function countDown() {
-				setInterval(minusSecond, 1000)
+				countdown = setInterval(minusSecond, 1000)
 			}
 			function minusSecond() {
 				timeLeft = timeLeft - 1;
@@ -91,7 +88,7 @@ $(document).ready(function() {
 					answers = [];
 					timeLeft = 20;
 					changeMissed();
-					replayGame();
+					endGame();
 					console.log("time")
 				}
 			}
@@ -109,9 +106,23 @@ $(document).ready(function() {
           		createAnswerButtons();
           		compareGuess();
 			}
+			function endGame() {
+				console.log("endgame called")
+				if(attempts === 50) {
+					$("#questionMarker").html("You got " + ((score * 100) / 50) + "% correct!");
+					console.log("endgame true");
+					clearInterval(countdown);
+					$("#questionDisplay").empty();
+				} else {
+					replayGame();
+				}
+			}
       	});
 	});
 });
+function setTime() {
+	$("#timer").html(timeLeft);
+}
 function changeScore() {
 	$("#score").html(score);
 	console.log("ive changed score")
@@ -122,25 +133,12 @@ function changeMissed() {
 function clear() {
 	$("#questionDisplay").empty();
 }
-function setTime() {
-	$("#timer").html(timeLeft);
-}
-function countDown() {
-	setInterval(minusSecond, 1000)
-}
-function minusSecond() {
-	timeLeft = timeLeft - 1;
-	setTime();
-	timeEnd();
-}
-function timeEnd() {
-	if(timeLeft === 0) {
-		missed = missed + 1;
-		attempts = attempts + 1;
-		answers = [];
-		timeLeft = 20;
-		changeMissed();
-		replayGame();
-		console.log("time")
+function endGame() {
+	console.log("endgame called")
+	if(attempts === 50) {
+		$("#questionMarker").html("You got " + ((score * 100) / 50) + "% correct!")
+		console.log("endgame true")
+		clearInterval(countdown);
+		$("#questionDisplay").html("<button class='button is-primary is-large is-outlined'>Retry</button>")
 	}
 }
