@@ -22,10 +22,24 @@ $(document).ready(function() {
 				$("#questionMarker").html(data.results[attempts].question);
 			}
 			function createAnswerArray() {
-				answer = data.results[attempts].correct_answer;
-          		answers.push(answer);
+				encodedStr1 = data.results[attempts].correct_answer;
+
+				var parser1 = new DOMParser;
+				var dom1 = parser1.parseFromString(
+    				'<!doctype html><body>' + encodedStr1,
+    				'text/html');
+				var decodedString1 = dom1.body.textContent;
+          		answers.push(decodedString1);
+          		answer = decodedString1;
           		for (var i = 0; i < data.results[attempts].incorrect_answers.length; i++) {
-          			answers.push(data.results[attempts].incorrect_answers[i]);
+          			encodedStr = data.results[attempts].incorrect_answers[i];
+
+					var parser = new DOMParser;
+					var dom = parser.parseFromString(
+    					'<!doctype html><body>' + encodedStr,
+    					'text/html');
+					var decodedString = dom.body.textContent;
+          			answers.push(decodedString);
           		} 
           		function shuffle(answers) {
   					var currentIndex = answers.length, temporaryValue, randomIndex;
